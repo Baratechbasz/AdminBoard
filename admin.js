@@ -96,13 +96,86 @@ async function recentCommits() {
     
     data.forEach(commit => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${commit.userId} - ${commit.points} pkt. (${commit.type}), ${commit.reason} `;
+        listItem.textContent = `Admin ${commit.adminId} dał ${commit.userId} - ${commit.points} pkt. (${commit.pointsType}), ${commit.reason} `;
         commitList.appendChild(listItem);
     });
+}
+
+async function logout() {
+    await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    });
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+}
+
+async function changePassword() {
+    const currentPassword = document.getElementById('oldPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+
+    const response = await fetch('/api/user/me/password', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ old_password: currentPassword, new_password: newPassword })
+    });
+
+    if (response.ok) {
+        document.getElementById(`passwordError`).style.color = 'green';
+        document.getElementById('passwordError').textContent = 'Hasło zostało zmienione';
+    } else if (response.status === 403) {
+        document.getElementById('passwordError').textContent = 'Błędne stare hasło';
+    }
+}
+
+async function addPoints() {
+    const userId = document.getElementById('userId').value;
+    const points = parseInt(document.getElementById('points').value);
+    const pointsType = document.getElementById('pointsType').value;
+    const reason = document.getElementById('reason').value;
+
+    const response = await fetch(`/api/user/${userId}/points`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ userId: userId, points, pointsType: pointsType, reason })
+    });
+
+    if (response.ok) {
+        document.getElementById('manageModal').style.display = 'none';
+    }
 }
 
 addEventListener('DOMContentLoaded', () => {
     fetchUserData();
     fetchAllUsers();
     recentCommits();
+
+    document.getElementById(`settings`).addEventListener('click', () => {
+    document.getElementById(`settingsModal`).style.display = 'block';
+});
+
+document.getElementById(`manage`).addEventListener('click', () => {
+    document.getElementById(`manageModal`).style.display = 'block';
+});
+
+document.getElementById(`closeSettings`).addEventListener('click', () => {
+    document.getElementById(`settingsModal`).style.display = 'none';
+});
+
+document.getElementById(`closeManage`).addEventListener('click', () => {
+    document.getElementById(`manageModal`).style.display = 'none';
+});
+document.getElementById(`logoutBtn`).addEventListener('click', logout);
+
+document.getElementById(`changePasswordBtn`).addEventListener('click', changePassword);
+
+document.getElementById(`addPointsBtn`).addEventListener('click', addPoints);
 });
