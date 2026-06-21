@@ -1,10 +1,10 @@
 if (localStorage.getItem('token') == null) {
-    window.location.href = '/login';
+    window.location.href = '/index.html';
 }
 
 if (response.status === 401) {
     localStorage.removeItem('token');
-    window.location.href = '/login';
+    window.location.href = '/index.html';
 }
 
 async function Login() {
@@ -20,9 +20,9 @@ const response = await fetch('/api/auth/login', {
 const data = await response.json();
 if (response.ok) {
     localStorage.setItem('token', data.token);
-    window.location.href = '/admin';
+    window.location.href = '/admin.html';
 }
-    // git i przenosimy do panelu admina
+
     else {
         alert('Błędne dane logowania albo coś się spieprzyło: ' + data.message);
     }}
