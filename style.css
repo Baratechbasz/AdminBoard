@@ -1,239 +1,560 @@
-body {
-    font-family: 'Pliant', sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
+/* ==========================================================================
+   1. ZMIENNE I CONFIG SYSTEMU (Łatwa zmiana kolorów / trybu Dark-Light)
+   ========================================================================== */
+:root {
+    --bg-main: #0f172a;          /* Głębokie, nowoczesne tło (Slate 900) */
+    --bg-surface: #1e293b;       /* Tło kart, tabel i paneli (Slate 800) */
+    --bg-nav: #111827;           /* Ciemniejsze tło dla nawigacji */
+    
+    --text-main: #f8fafc;        /* Główny biały tekst */
+    --text-muted: #94a3b8;       /* Wyblakły tekst pomocniczy */
+    
+    /* Kolory akcentów i punktów */
+    --accent: #6366f1;           /* Indigo - główny kolor marki / przycisków */
+    --accent-hover: #4f46e5;
+    --success: #10b981;          /* Szmaragdowy zielony (punkty dodatnie) */
+    --danger: #ef4444;           /* Żywy czerwony (punkty ujemne) */
+    --special: #f59e0b;          /* Ciepły złoty (punkty specjalne / gwiazda) */
+    
+    --border: rgba(255, 255, 255, 0.08);
+    --radius: 12px;              /* Standardowe, ładne zaokrąglenie */
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ==========================================================================
+   2. RESET I STYLE GLOBALNE
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Pliant', 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* Wspólne style dla nagłówków na czystych stronach (np. Regulamin) */
+h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   3. EKRAN LOGOWANIA (index.html)
+   ========================================================================== */
+/* Automatyczne centrowanie formularza, gdy na stronie nie ma nawigacji */
+body:not(:has(nav)) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: radial-gradient(circle at top, #1e1b4b 0%, var(--bg-main) 100%);
+}
+
+body:not(:has(nav)) h1 {
+    margin-bottom: 24px;
+    font-size: 2.5rem;
+    color: var(--text-main);
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Stylowanie inputów logowania i przycisku */
+body:not(:has(nav)) input[type="text"],
+body:not(:has(nav)) input[type="password"] {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-main);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+body:not(:has(nav)) input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+}
+
+body:not(:has(nav)) button#SubmitBtn {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+body:not(:has(nav)) button#SubmitBtn:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   4. NAWIGACJA (Dashboard)
+   ========================================================================== */
 nav {
-    background-color: #4a6fa5;
+    background-color: var(--bg-nav);
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    align-items: center;
+    padding: 0 24px;
+    height: 70px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 #logo {
-    height: 60px;
+    height: 42px;
+    object-fit: contain;
 }
 
-#lamasTeam{
+#lamasTeam {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: 1px;
+}
 
-    font-size: 40px;
-}
-nav p {
-    color: yellow;
-    margin: 0;
-}
 #navRight {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 #adminName {
-    color: white;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-left: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
 }
 
+/* Przyciski w nawigacji */
+#navRight button {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+#navRight button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#navRight button:active {
+    transform: scale(0.96);
+}
+
+/* Specjalny przycisk ostrzeżeń/zarządzania */
+#manage i {
+    font-size: 1.1rem;
+    animation: pulse 2s infinite;
+}
+
+/* ==========================================================================
+   5. GLÓWNY UKŁAD STRONY (Grid / Flexbox)
+   ========================================================================== */
+#mainContent {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Tabela zajmuje więcej miejsca */
+    gap: 24px;
+}
+
+/* Responsywność dla mniejszych ekranów */
+@media (max-width: 1024px) {
+    #mainContent {
+        grid-template-columns: 1fr;
+    }
+    #lamasTeam {
+        display: none; /* Ukryj napis na rzecz przestrzeni na mobile */
+    }
+}
+
+/* ==========================================================================
+   6. TABELA UŻYTKOWNIKÓW
+   ========================================================================== */
+#table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--bg-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+#table th {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+#table td {
+    padding: 16px 20px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+#table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#table tbody tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Style wstrzykiwane przez JS dla wierszy zwycięzców */
+tr[id^="user-"] {
+    transition: var(--transition);
+}
+
+/* ==========================================================================
+   7. PANEL STATYSTYK (Sidebar)
+   ========================================================================== */
+#adminStats {
+    background-color: var(--bg-surface);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-self: flex-start;
+}
+
+#adminStats p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.badgeWeek, .badgeMonth {
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.badgeWeek { background-color: var(--success); }
+.badgeMonth { background-color: var(--accent); }
+
+/* ==========================================================================
+   8. STRUMIEŃ COMMITÓW / LOGÓW (Activity Log)
+   ========================================================================== */
+#commit {
+    grid-column: 1 / -1; /* Rozciąga logi na całą szerokość pod tabelą */
+    list-style: none;
+    margin-top: 8px;
+}
+
+.commit-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.commit-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(4px);
+}
+
+.commit-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.receiver {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1.05rem;
+}
+
+.sender {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.commit-reason {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--accent);
+}
+
+.commit-reason small {
+    display: block;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+
+.commit-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+/* Kolorowanie punktów w logach */
+.points, .points-positive {
+    color: var(--success);
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 2px 10px;
+    border-radius: 6px;
+}
+
+.points-negative {
+    color: var(--danger);
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 2px 10px;
+    border-radius: 6px;
+}
+
+/* ==========================================================================
+   9. OKNA MODALNE (Modals)
+   ========================================================================== */
 .modal {
-    display: none;
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-
+    background-color: rgba(15, 23, 42, 0.75); /* Przyciemnienie w kolorze tła */
+    backdrop-filter: blur(6px); /* Efekt rozmytego szkła za modalem */
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
 }
 
 .modal-content {
+    background-color: var(--bg-surface);
+    margin: 10% auto;
+    padding: 32px;
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 5px;
-    width: 50%;
+    animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 .modal-content h2 {
-    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 1.5rem;
     text-align: center;
+}
+
+.modal-content h3 {
+    margin: 20px 0 12px 0;
+    font-size: 1.1rem;
+    color: var(--text-muted);
 }
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
+    top: 16px;
+    right: 20px;
+    font-size: 28px;
+    color: var(--text-muted);
     cursor: pointer;
+    transition: var(--transition);
 }
 
-.modal-content input {
-    margin-bottom: 20px;
-}
-.modal-content button {
-    margin-bottom:20px;
-}
-#mainContent {
-    padding: 20px;
-    display: flex;
-    margin-top: 20px;
-    gap: 70px;
-    
+.close:hover {
+    color: var(--text-main);
 }
 
-.modal-content h3 {
-    margin-top: 0;
-    text-align: center;
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
 }
 
-.change-password input {
+/* Style formularzy wewnątrz modali */
+.modal-content input[type="text"],
+.modal-content input[type="password"],
+.modal-content input[type="number"],
+.modal-content select,
+.modal-content textarea {
+    display: block;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+#reason {
+    resize: none;
+}
+
+/* Przyciski akcji w modalach */
+#changePasswordBtn, #addPointsBtn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--success);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#changePasswordBtn:hover, #addPointsBtn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
 }
 
 #logoutBtn {
-    background-color: #e21313;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#changePasswordBtn {
-    background-color: #2bc719;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#manageModal input, #manageModal select {
-    display: block;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-#reason {
-    resize: none;
-    width: 100%;
-}
-
-
-#addPointsBtn {
-    background-color: #2bc719;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 0 auto;
-    display: block;
-}
-
-#adminStats {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    align-self: flex-start
-}
-
-#table {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#table th, #table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-#commit li {
-    background-color: #ffffff;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    list-style-type: none;
-    
-}
-
-.points {
-    font-size: 20px;
-    font-weight: bold;
-    color: green;
-}
-
-.commit-header {
-    margin-bottom: 10px;
-}
-
-.commit-reason {
-    margin-bottom: 5px;
-}
-
-.badgeWeek {
-    background-color: #2bc719;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 3px;
-}
-
-.badgeMonth {
-    background-color: #e21313;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 3px;
-}
-
-.points-positive {
-    font-size: 20px;
-    font-weight: bold;
-    color: green;
-}
-
-.points-negative {
-    font-size: 20px;
-    font-weight: bold;
-    color: red;
-}
-
-#navRight button {
-    border-radius: 5px;
+    padding: 12px;
     background-color: transparent;
-    border: 1px solid white;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: var(--transition);
+}
+
+#logoutBtn:hover {
+    background-color: var(--danger);
     color: white;
+}
 
-    padding: 6px 12px;
-    font-size: 14px;
+/* Checkbox ładnie wyrównany */
+.modal-content input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.1);
+    accent-color: var(--accent);
+}
 
-    transition: transform 0.5s, background-color 0.7s;
-    }
+/* ==========================================================================
+   10. STRONA REGULAMINU (regulamin.html)
+   ========================================================================== */
+body:has(#rulesText) {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 24px;
+}
 
-#navRight button:hover {
-    background:#e2e3e2;
-    color: #333;
-    border:none;
-    border-radius:2px;
-    cursor:pointer;
-}    
+body:has(#rulesText) h1 {
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 12px;
+    color: var(--accent);
+}
 
-#navRight button:active {
-    transform: scale(0.90);
+#rulesText {
+    background-color: var(--bg-surface);
+    padding: 32px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    color: #cbd5e1;
+    font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   11. ANIMACJE
+   ========================================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
 }
