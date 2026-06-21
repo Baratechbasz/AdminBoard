@@ -11,8 +11,16 @@ nav {
     padding: 10px;
 }
 
-#lamasTeam {
-    font-size: 30px;
+#logo {
+    height: 60px;
+}
+
+#lamasTeam{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 40px;
 }
 nav p {
     color: yellow;
@@ -204,4 +212,28 @@ nav p {
     font-size: 20px;
     font-weight: bold;
     color: red;
+}
+
+#navRight button {
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+
+    padding: 6px 12px;
+    font-size: 14px;
+
+    transition: transform 0.5s, background-color 0.7s;
+    }
+
+#navRight button:hover {
+    background:#e2e3e2;
+    color: #333;
+    border:none;
+    border-radius:2px;
+    cursor:pointer;
+}    
+
+#navRight button:active {
+    transform: scale(0.90);
 }
