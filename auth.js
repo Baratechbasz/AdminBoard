@@ -23,7 +23,7 @@ if (response.ok) {
     window.location.href = '/admin.html';
 }
 
-    else {
+else {
         alert('Błędne dane logowania albo coś się spieprzyło: ' + data.message);
     }}
 
