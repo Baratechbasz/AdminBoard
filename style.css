@@ -1,1 +1,207 @@
-/* TODO: narazie nic nie ma */
+body {
+    font-family: 'Pliant', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+nav {
+    background-color: #4a6fa5;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#lamasTeam {
+    font-size: 30px;
+}
+nav p {
+    color: yellow;
+    margin: 0;
+}
+#navRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#adminName {
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 50%;
+}
+.modal-content h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-content input {
+    margin-bottom: 20px;
+}
+.modal-content button {
+    margin-bottom:20px;
+}
+#mainContent {
+    padding: 20px;
+    display: flex;
+    margin-top: 20px;
+    gap: 70px;
+    
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.change-password input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#logoutBtn {
+    background-color: #e21313;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#changePasswordBtn {
+    background-color: #2bc719;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#manageModal input, #manageModal select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+#reason {
+    resize: none;
+    width: 100%;
+}
+
+
+#addPointsBtn {
+    background-color: #2bc719;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 auto;
+    display: block;
+}
+
+#adminStats {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    align-self: flex-start
+}
+
+#table {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#table th, #table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#commit li {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    list-style-type: none;
+    
+}
+
+.points {
+    font-size: 20px;
+    font-weight: bold;
+    color: green;
+}
+
+.commit-header {
+    margin-bottom: 10px;
+}
+
+.commit-reason {
+    margin-bottom: 5px;
+}
+
+.badgeWeek {
+    background-color: #2bc719;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.badgeMonth {
+    background-color: #e21313;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.points-positive {
+    font-size: 20px;
+    font-weight: bold;
+    color: green;
+}
+
+.points-negative {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
