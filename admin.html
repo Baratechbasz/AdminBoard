@@ -1,17 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Board</title>
-</head>
-<body>
-    <nav>   
-        <button id="settings">Settings</button>
-        <button id="manage">Manage</button>
-        <span id="adminName">Admin name</span>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Admin Board</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pliant:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+        <p id="lamasTeam">Lama's Team</p>
+        <div id="navRight">
+            <button id="manage"><i class="fa-solid fa-triangle-exclamation" style="color: red;"></i></button>
+            <button id="Rules">Regulamin</button>
+            <button id="settings"><i class="fa-solid fa-gear"></i></button>
+            <span id="adminName">Admin name</span>
+        </div>
     </nav>
-    <table id="table">
+        <div id="mainContent">
+        <table id="table">
     <thead> 
         <tr>  
             <th>Nazwa</th>
@@ -20,47 +30,98 @@
             <th>pkt. specjalne</th>
         </tr>
     </thead>
-    <tbody id="tableBody">  
+    <tbody id="tableBody"> 
+        <tr>
+            <td>Lamen</td>
+            <td>45</td>
+            <td>2</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>Lamowy</td>
+            <td>120</td>
+            <td>0</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>Krzysiek_Mod</td>
+            <td>15</td>
+            <td>5</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Support_Anna</td>
+            <td>32</td>
+            <td>1</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>Junior_Admin</td>
+            <td>5</td>
+            <td>12</td>
+            <td>0</td>
+        </tr>
     </tbody>
 </table>
-<ul id="commit">    
-    
-</ul>
-
-<div id="settingsModal" class="modal">
-    <div class="modal-content">
-            <span class="close" id="closeSettings">&times;</span>
-        <h2>Settings</h2>
-            <input type="checkbox" id="darklightmode">Light/Dark mode<br>
-        <hr>
-    <div class="change-password">
-        <h3>Zmiana hasła</h3>
-            <input type="password" id="oldPassword" placeholder="Stare hasło">
-            <input type="password" id="newPassword" placeholder="Nowe hasło">
-            <span id="passwordError" style="color: red;"></span>
-    <button id="changePasswordBtn">Zapisz</button>
-        </div>
-    <button id="logoutBtn">Wyloguj</button>
-    <br>
-        </div>
-</div>
-
-<div id="manageModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="closeManage">&times;</span>
-        <h2>Manage Users</h2>
-        <input type="text" id="userId" placeholder="User ID">
-        <input type="number" id="points" placeholder="Points">
-        <select id="pointsType">
-            <option value="POSITIVE">Positive</option>
-            <option value="NEGATIVE">Negative</option>
-            <option value="SPECIAL">Special</option>
-        </select>
-        <input type="text" id="reason" placeholder="Reason">
-        <button id="addPointsBtn">Add Points</button>
+    <div id="adminStats">
+        <p>Admin Tygodnia: <span class="badgeWeek">Lamowy</span></p>
+        <p>Admin Miesiąca: <span class="badgeMonth">Kronik</span></p>
     </div>
+    <ol id="commit">
+    <li>
+        <div class="commit-card">
+            <div class="commit-header">
+                <span class="receiver">Barabasz</span>
+                <span class="points">+10</span>
+                <span class="sender">points by Lamowy</span>
+            </div>
+            
+            <div class="commit-reason">
+                Ponieważ napisał dobry post <br>
+                <small>(punkty: specjalne)</small>
+            </div>
+            
+            <div class="commit-date">
+                2024-06-15
+            </div>
+        </div>
+    </li>
+</ol>
     </div>
-<script src="admin.js"></script>
-</body>
-</html>
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+                <span class="close" id="closeSettings">&times;</span>
+            <h2>Settings</h2>
+                <input type="checkbox" id="darklightmode" id="darkLightMode">Light/Dark mode<br>
+            <hr>
+        <div class="change-password">
+            <h3>Zmiana hasła</h3>
+                <input type="password" id="oldPassword" placeholder="Stare hasło">
+                <input type="password" id="newPassword" placeholder="Nowe hasło">
+                <span id="passwordError" style="color: red;"></span>
+        <button id="changePasswordBtn">Zapisz</button>
+            </div>
+        <button id="logoutBtn">Wyloguj</button>
+        <br>
+            </div>
+    </div>
+
+    <div id="manageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeManage">&times;</span>
+            <h2>Manage Users</h2>
+            <input type="text" id="userId" placeholder="User ID">
+            <input type="number" id="points" placeholder="Points">
+            <select id="pointsType">
+                <option value="POSITIVE">Positive</option>
+                <option value="NEGATIVE">Negative</option>
+                <option value="SPECIAL">Special</option>
+            </select>
+            <textarea id="reason" placeholder="Reason" rows="4"></textarea>
+            <button id="addPointsBtn">Add Points</button>
+        </div>
+        </div>
+    <script src="admin.js"></script>
+    </body>
+    </html>
 
