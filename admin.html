@@ -12,12 +12,13 @@
     </head>
     <body>
         <nav>
+        <img src="logo.png" alt="Logo" id="logo">
         <p id="lamasTeam">Lama's Team</p>
         <div id="navRight">
             <button id="manage"><i class="fa-solid fa-triangle-exclamation" style="color: red;"></i></button>
             <button id="Rules">Regulamin</button>
             <button id="settings"><i class="fa-solid fa-gear"></i></button>
-            <span id="adminName">Admin name</span>
+            <span id="adminName">Nazwa admina</span>
         </div>
     </nav>
         <div id="mainContent">
@@ -73,7 +74,7 @@
             <div class="commit-header">
                 <span class="receiver">Barabasz</span>
                 <span class="points">+10</span>
-                <span class="sender">points by Lamowy</span>
+                <span class="sender">punktów przez Lamowy</span>
             </div>
             
             <div class="commit-reason">
@@ -91,8 +92,8 @@
     <div id="settingsModal" class="modal">
         <div class="modal-content">
                 <span class="close" id="closeSettings">&times;</span>
-            <h2>Settings</h2>
-                <input type="checkbox" id="darkLightMode">Light/Dark mode<br>
+            <h2>Ustawienia</h2>
+                <input type="checkbox" id="darklightmode" id="darkLightMode">Jasny/Ciemny tryb<br>
             <hr>
         <div class="change-password">
             <h3>Zmiana hasła</h3>
@@ -109,16 +110,18 @@
     <div id="manageModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeManage">&times;</span>
-            <h2>Manage Users</h2>
-            <input type="text" id="userId" placeholder="User ID">
-            <input type="number" id="points" placeholder="Points">
-            <select id="pointsType">
-                <option value="POSITIVE">Positive</option>
-                <option value="NEGATIVE">Negative</option>
-                <option value="SPECIAL">Special</option>
+            <h2> Zarządzanie użytkownikami</h2>
+            <select id="userSelect">
+                <option value="">Wybierz użytkownika</option>
             </select>
-            <textarea id="reason" placeholder="Reason" rows="4"></textarea>
-            <button id="addPointsBtn">Add Points</button>
+            <input type="number" id="points" placeholder="Punkty">
+            <select id="pointsType">
+                <option value="POSITIVE">Dodatnie</option>
+                <option value="NEGATIVE">Ujemne</option>
+                <option value="SPECIAL">Specjalne</option>
+            </select>
+            <textarea id="reason" placeholder="Powód" rows="4"></textarea>
+            <button id="addPointsBtn">Dodaj Punkty</button>
         </div>
         </div>
     <script src="admin.js"></script>
