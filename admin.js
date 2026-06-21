@@ -1,3 +1,4 @@
+
 if (localStorage.getItem('token') == null) {
     window.location.href = '/login';
 }
@@ -20,6 +21,12 @@ async function fetchUserData() {
     const data = await response.json();
     const adminName = document.getElementById('adminName');
     adminName.textContent = data.name;
+
+    if (data.permissions.includes('MANAGE_POINTS')) {
+        document.getElementById('manage').style.display = 'block';
+    } else {
+        document.getElementById('manage').style.display = 'none';
+    }
 }
 
 async function fetchAllUsers() {
@@ -38,7 +45,6 @@ async function fetchAllUsers() {
     }
 
     const data = await response.json();
-    // Do something with the fetched user data, e.g., display it in a table
 
     data.forEach(user => {
         fetch(`/api/user/${user}`, {
@@ -96,7 +102,22 @@ async function recentCommits() {
     
     data.forEach(commit => {
         const listItem = document.createElement('li');
-        listItem.textContent = `Admin ${commit.adminId} dał ${commit.userId} - ${commit.points} pkt. (${commit.pointsType}), ${commit.reason} `;
+        listItem.innerHTML = `
+            <div class="commit-card">
+                <div class="commit-header">
+                    <span class="receiver">${commit.userId}</span>
+                    <span class="${commit.operation === 'ADD' ? 'points-positive' : 'points-negative'}">${commit.operation === 'ADD' ? '+' : '-'}${commit.points}</span>
+                    <span class="sender">points by ${commit.adminId}</span>
+                </div>
+                <div class="commit-reason">
+                    ${commit.reason} <br>
+                    <small>(punkty: ${commit.pointsType})</small>
+                </div>
+                <div class="commit-date">
+                    ${new Date(commit.timestamp).toLocaleString('pl-PL')}
+                </div>
+            </div>
+        `;
         commitList.appendChild(listItem);
     });
 }
@@ -178,4 +199,8 @@ document.getElementById(`logoutBtn`).addEventListener('click', logout);
 document.getElementById(`changePasswordBtn`).addEventListener('click', changePassword);
 
 document.getElementById(`addPointsBtn`).addEventListener('click', addPoints);
+
+document.getElementById(`Rules`).addEventListener('click', () => {
+    window.location.href = '/regulamin.html';
+});
 });
