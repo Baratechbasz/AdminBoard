@@ -1,33 +1,26 @@
-if (localStorage.getItem('token') == null) {
-    window.location.href = '/index.html';
-}
-
-if (response.status === 401) {
-    localStorage.removeItem('token');
-    window.location.href = '/index.html';
-}
-
 async function Login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-const username = document.getElementById('username').value;
-const password = document.getElementById('password').value;
+    const response = await fetch('http://127.0.0.1:8080/api/auth/login', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ id: username, password: password })
+    });
 
-const response = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ id: username, password: password })
-});
-const data = await response.json();
-if (response.ok) {
-    localStorage.setItem('token', data.token);
-    window.location.href = '/admin.html';
+    if (response.ok) {
+        const data = await response.json();
+
+        localStorage.setItem('token', data.token);
+        window.location.href = '/admin.html';
+    }
+    // git i przenosimy do panelu admina
+    else {
+        alert('Błędne dane logowania lub backend jest wyłączony. Proszę spróbować ponownie.');
+    }
 }
 
-else {
-        alert('Błędne dane logowania albo coś się spieprzyło: ' + data.message);
-    }}
-
-    addEventListener('DOMContentLoaded', () => {
-        const loginBtn = document.getElementById('SubmitBtn');
+addEventListener('DOMContentLoaded', () => {
+    const loginBtn = document.getElementById('SubmitBtn');
     loginBtn.addEventListener('click', Login);
 });
