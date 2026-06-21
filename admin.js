@@ -1,8 +1,8 @@
-/*
+
 if (localStorage.getItem('token') == null) {
     window.location.href = '/index.html';
 }
-*/
+
 async function fetchUserData() {
     const response = await fetch('/api/user/me', {
         method: 'GET',
@@ -200,10 +200,26 @@ async function adminOfTheWeek() {
         return;
     }
 
-    const data = await response.text();
-    document.getElementById('user-' + data).style.backgroundColor = '#58e178';
+    const adminId = await response.text(); 
 
-    }
+    const userResponse = await fetch(`/api/user/${adminId}`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    });
+    
+    const userData = await userResponse.json();
+
+    document.querySelector('.badgeWeek').textContent = userData.name;
+
+    setTimeout(() => {
+        const row = document.getElementById('user-' + adminId);
+        if (row) row.style.backgroundColor = '#58e178';
+    }, 1000);
+}
+
 
 async function adminOfTheMonth() {
     const response = await fetch(`/api/user/adminofthemonth`, {
@@ -220,8 +236,24 @@ async function adminOfTheMonth() {
         return;
     }
 
-    const data = await response.text();
-    document.getElementById('user-' + data).style.backgroundColor = '#e02c2c'
+    const adminId = await response.text();
+
+    const userResponse = await fetch(`/api/user/${adminId}`, {
+    method: 'GET',
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+    }
+});
+
+    const userData = await userResponse.json();
+
+    document.querySelector('.badgeMonth').textContent = userData.name;
+
+    setTimeout (() => {
+        const row = document.getElementById(`user-` + adminId);
+        if (row) row.style.backgroundColor = '#d81b1b';
+    },1000);
 }
 
 addEventListener('DOMContentLoaded', () => {
